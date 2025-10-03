@@ -24,11 +24,32 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
+    # ---------------------------
+    # Backend
+    # ---------------------------
+    - name: Install backend dependencies
+      working-directory: ./backend
       run: npm install
 
-    - name: Run lint (optional)
+    - name: Run backend lint (optional)
+      working-directory: ./backend
       run: npm run lint || echo "No lint script found"
 
-    - name: Run tests (if any)
+    - name: Run backend tests (if any)
+      working-directory: ./backend
+      run: npm test || echo "No tests found"
+
+    # ---------------------------
+    # Frontend
+    # ---------------------------
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Run frontend lint (optional)
+      working-directory: ./frontend
+      run: npm run lint || echo "No lint script found"
+
+    - name: Run frontend tests (if any)
+      working-directory: ./frontend
       run: npm test || echo "No tests found"
