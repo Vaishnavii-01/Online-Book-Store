@@ -25,7 +25,9 @@ export const BookSwapWSProvider = ({ children }) => {
     console.log('🔄 Connecting to WebSocket...');
 
     try {
-      ws.current = new WebSocket('ws://localhost:5000/chat');
+      ws.current = new WebSocket(import.meta.env.MODE === "production"
+    ? "wss://online-book-store-y7o9.onrender.com/chat"
+    : "ws://localhost:5000/chat");
       
       ws.current.onopen = () => {
         console.log('✅ WebSocket connected successfully!');
