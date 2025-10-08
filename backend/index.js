@@ -12,7 +12,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      process.env.FRONTEND_URL || "https://online-book-store-frontend.vercel.app"
+      process.env.FRONTEND_URL,
+      "https://online-book-store-1-wth4.onrender.com/"
     ],
     credentials: true,
   })
