@@ -10,17 +10,22 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   "http://localhost:5173",
   process.env.FRONTEND_URL || "https://online-book-store-1-wth4.onrender.com",
+  "https://online-book-store-frontend.vercel.app"
 ];
 
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (!origin) {
+  const origin = req.headers.origin || "none";
+  console.log(`[CORS DEBUG] incoming origin: ${origin}  url: ${req.originalUrl}`);
+
+  res.setHeader("Cache-Control", "no-store");
+
+  if (!req.headers.origin) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     return next();
   }
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
+  if (allowedOrigins.includes(req.headers.origin)) {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader(
       "Access-Control-Allow-Methods",
@@ -31,6 +36,8 @@ app.use((req, res, next) => {
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     res.setHeader("Vary", "Origin");
+  } else {
+    console.log(`[CORS DEBUG] origin not allowed: ${req.headers.origin}`);
   }
 
   if (req.method === "OPTIONS") return res.sendStatus(200);
