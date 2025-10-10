@@ -13,7 +13,8 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   "http://localhost:5173",
   process.env.FRONTEND_URL || "https://online-book-store-1-wth4.onrender.com",
-  "https://online-book-store-frontend.vercel.app"
+  "https://online-book-store-frontend.vercel.app",
+  "https://online-book-store-1-wth4.onrender.com"
 ];
 
 // CORS options for the cors package
